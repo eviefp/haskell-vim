@@ -163,29 +163,29 @@ function! GetHaskellIndent()
   "   |
   "   ...
   " >>,
-  if l:line =~ '^\s*,'
-    if s:isInBlock(s:getHLStack(line('.'), col('.')))
-      normal! 0
-      call search(',', 'cW')
-      let l:n = s:getNesting(s:getHLStack(line('.'), col('.')))
-      call search('[([{]', 'bW')
-      let l:cl = line('.')
-      let l:cc = col('.')
+  " if l:line =~ '^\s*,'
+  "   if s:isInBlock(s:getHLStack(line('.'), col('.')))
+  "     normal! 0
+  "     call search(',', 'cW')
+  "     let l:n = s:getNesting(s:getHLStack(line('.'), col('.')))
+  "     call search('[([{]', 'bW')
+  "     let l:cl = line('.')
+  "     let l:cc = col('.')
 
-      while l:n != s:getNesting(s:getHLStack(l:cl, l:cc)) || s:isSYN('haskellString', l:cl, l:cc) || s:isSYN('haskellChar', l:cl, l:cc)
-        call search('[([{]', 'bW')
-        let l:cl = line('.')
-        let l:cc = col('.')
-      endwhile
+  "     while l:n != s:getNesting(s:getHLStack(l:cl, l:cc)) || s:isSYN('haskellString', l:cl, l:cc) || s:isSYN('haskellChar', l:cl, l:cc)
+  "       call search('[([{]', 'bW')
+  "       let l:cl = line('.')
+  "       let l:cc = col('.')
+  "     endwhile
 
-      return l:cc - 1
-    else
-      let l:s = s:indentGuard(match(l:line, ','), l:prevline)
-      if l:s > -1
-        return l:s
-      end
-    endif
-  endif
+  "     return l:cc - 1
+  "   else
+  "     let l:s = s:indentGuard(match(l:line, ','), l:prevline)
+  "     if l:s > -1
+  "       return l:s
+  "     end
+  "   endif
+  " endif
 
   " operator at end of previous line
   if l:prevline =~ '[!#$%&*+./<>?@\\^|~-]\s*$'
